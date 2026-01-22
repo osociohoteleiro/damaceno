@@ -478,98 +478,6 @@
             fill: #4CAF50;
         }
 
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            position: relative;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
-            border-radius: 20px;
-            border: 1px solid rgba(138, 43, 226, 0.3);
-            box-shadow:
-                0 25px 80px rgba(0, 0, 0, 0.5),
-                0 0 60px rgba(138, 43, 226, 0.2);
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .modal-close {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(90deg);
-        }
-
-        .modal-close svg {
-            width: 18px;
-            height: 18px;
-            fill: #ffffff;
-        }
-
-        .modal-body {
-            padding: 0;
-            height: 500px;
-        }
-
-        #osh-chat-container {
-            width: 100%;
-            height: 100%;
-        }
-
         /* Responsividade */
         @media (max-width: 768px) {
             .container {
@@ -674,12 +582,12 @@
 
         <div class="cta-section">
             <p class="cta-text">Vagas limitadas para a próxima turma</p>
-            <button class="cta-button" id="openModalBtn">
+            <a href="https://wa.me/5511916362212?text=Ol%C3%A1%2C%20acabei%20de%20assistir%20o%20mini%20treinamento%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" class="cta-button">
                 Quero Garantir Minha Vaga
                 <svg viewBox="0 0 24 24">
                     <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
                 </svg>
-            </button>
+            </a>
 
             <div class="guarantees">
                 <div class="guarantee-item">
@@ -706,34 +614,6 @@
 
     </div>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="chatModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title">Fale com nosso assistente</span>
-                <button class="modal-close" id="closeModalBtn">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="osh-chat-container"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Widget Script -->
-    <script src="https://api.osociohoteleiro.com.br/api/widget/widget.min.js"></script>
-    <script>
-        OSHWidget.init({
-            workspace: 'ed65f187-0106-4fd5-a043-0cfb1849a3d2',
-            type: 'inline',
-            container: '#osh-chat-container',
-            apiUrl: 'https://api.osociohoteleiro.com.br/api'
-        });
-    </script>
-
     <script>
         // Simular clique no vídeo
         document.getElementById('videoPlaceholder').addEventListener('click', function() {
@@ -759,36 +639,6 @@
             }
         }
         createParticles();
-
-        // Modal
-        const modal = document.getElementById('chatModal');
-        const openBtn = document.getElementById('openModalBtn');
-        const closeBtn = document.getElementById('closeModalBtn');
-
-        openBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        closeBtn.addEventListener('click', function() {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
     </script>
 </body>
 </html>
