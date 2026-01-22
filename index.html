@@ -609,17 +609,20 @@
                     <span>Suporte exclusivo</span>
                 </div>
             </div>
+
+            <!-- Widget de Chat IA - Inline -->
+            <div id="osh-chat-container" style="width: 100%; height: 600px; margin-top: 40px;"></div>
         </div>
 
     </div>
 
-    <!-- Widget de Chat IA - Botão Flutuante -->
+    <!-- Widget Script -->
     <script src="https://api.osociohoteleiro.com.br/api/widget/widget.min.js"></script>
     <script>
         OSHWidget.init({
             workspace: 'ed65f187-0106-4fd5-a043-0cfb1849a3d2',
-            type: 'floating',
-            position: 'bottom-right',
+            type: 'inline',
+            container: '#osh-chat-container',
             apiUrl: 'https://api.osociohoteleiro.com.br/api'
         });
     </script>
