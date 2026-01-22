@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do Zero ao Primeiro Milhão</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Efeitos de fundo */
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* Gradiente animado */
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.3) 0%, transparent 70%);
+            top: 50%;
+            right: -150px;
+            animation-delay: -2s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, transparent 70%);
+            bottom: -100px;
+            left: 30%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.05);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+        }
+
+        /* Grid de fundo */
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+        }
+
+        /* Partículas */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: sparkle 4s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1);
+            }
+        }
+
+        /* Linhas de luz */
+        .light-beam {
+            position: absolute;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, rgba(138, 43, 226, 0.5), transparent);
+            animation: beam 3s ease-in-out infinite;
+        }
+
+        @keyframes beam {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Container principal */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Badge superior */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #c9a0ff;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #8a2be2;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(138, 43, 226, 0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Headline */
+        .headline {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .headline h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .highlight-yellow {
+            color: #FFB800;
+            text-shadow: 0 0 30px rgba(255, 184, 0, 0.4);
+        }
+
+        .highlight-white {
+            color: #ffffff;
+        }
+
+        /* Subheadline */
+        .subheadline {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: clamp(14px, 2.5vw, 18px);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .subheadline strong {
+            color: #FFB800;
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container do vídeo */
+        .video-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px 0;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 */
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(138, 43, 226, 0.2),
+                0 0 60px rgba(138, 43, 226, 0.15);
+        }
+
+        .video-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #8a2be2, #FFB800, #8a2be2);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2d1b4e 0%, #1a1a2e 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-placeholder:hover {
+            background: linear-gradient(135deg, #3d2b5e 0%, #2a2a3e 100%);
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8a2be2 0%, #6a1bb2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(138, 43, 226, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .play-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            animation: playPulse 2s ease-out infinite;
+        }
+
+        @keyframes playPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .video-placeholder:hover .play-button {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(138, 43, 226, 0.7);
+        }
+
+        .play-button svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+            margin-left: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* iframe do vídeo */
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .cta-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #FFB800 0%, #FF8C00 100%);
+            color: #000000;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow:
+                0 10px 40px rgba(255, 184, 0, 0.4),
+                0 0 0 0 rgba(255, 184, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 15px 50px rgba(255, 184, 0, 0.5),
+                0 0 0 4px rgba(255, 184, 0, 0.2);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Garantias */
+        .guarantees {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        .guarantee-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .guarantee-item svg {
+            width: 18px;
+            height: 18px;
+            fill: #4CAF50;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px 50px;
+            }
+
+            .video-wrapper {
+                border-radius: 15px;
+            }
+
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+
+            .play-button svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .video-text {
+                font-size: 16px;
+            }
+
+            .cta-button {
+                padding: 16px 30px;
+                font-size: 16px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .guarantees {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efeitos de fundo -->
+    <div class="background-effects">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="grid-overlay"></div>
+        <div class="particles">
+            <div class="particle" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; top: 80%; animation-delay: 0.5s;"></div>
+            <div class="particle" style="left: 30%; top: 40%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 50%; top: 10%; animation-delay: 1.5s;"></div>
+            <div class="particle" style="left: 70%; top: 60%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 80%; top: 30%; animation-delay: 2.5s;"></div>
+            <div class="particle" style="left: 90%; top: 70%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 15%; top: 50%; animation-delay: 3.5s;"></div>
+            <div class="particle" style="left: 85%; top: 15%; animation-delay: 0.8s;"></div>
+            <div class="particle" style="left: 60%; top: 85%; animation-delay: 1.8s;"></div>
+        </div>
+        <div class="light-beam" style="left: 20%; animation-delay: 0s;"></div>
+        <div class="light-beam" style="left: 50%; animation-delay: 1s;"></div>
+        <div class="light-beam" style="left: 80%; animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <div class="badge">
+            Método Exclusivo
+        </div>
+
+        <div class="headline">
+            <h1>
+                Como sair do <span class="highlight-yellow">ZERO</span> aos seu primeiro<br>
+                <span class="highlight-yellow">MILHÃO na internet</span> <span class="highlight-white">vendendo seu curso ou mentoria</span><br>
+                trabalhando apenas <span class="highlight-yellow">14hrs semanais.</span>
+            </h1>
+        </div>
+
+        <p class="subheadline">
+            Sem largar seu trabalho atual, sem equipe, sem usar o gerenciador de anúncios, sem viralizar,<br>
+            <strong>com uma estrutura automática de venda.</strong>
+        </p>
+
+        <div class="video-section">
+            <div class="video-wrapper">
+                <!-- Substitua o placeholder pelo seu vídeo -->
+                <div class="video-placeholder" id="videoPlaceholder">
+                    <div class="play-button">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                    <span class="video-text">Clique para assistir</span>
+                </div>
+
+                <!-- Descomente e adicione a URL do seu vídeo -->
+                <!-- <iframe
+                    src="https://www.youtube.com/embed/SEU_VIDEO_ID"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe> -->
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <p class="cta-text">Vagas limitadas para a próxima turma</p>
+            <a href="#" class="cta-button">
+                Quero Garantir Minha Vaga
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+            </a>
+
+            <div class="guarantees">
+                <div class="guarantee-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Garantia de 7 dias</span>
+                </div>
+                <div class="guarantee-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Acesso imediato</span>
+                </div>
+                <div class="guarantee-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Suporte exclusivo</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simular clique no vídeo
+        document.getElementById('videoPlaceholder').addEventListener('click', function() {
+            // Aqui você pode adicionar a lógica para carregar o vídeo
+            // Por exemplo, substituir o placeholder por um iframe
+            alert('Adicione a URL do seu vídeo no código HTML');
+
+            // Exemplo de como carregar um vídeo do YouTube:
+            // const wrapper = this.parentElement;
+            // wrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        });
+
+        // Adicionar mais partículas dinamicamente
+        function createParticles() {
+            const container = document.querySelector('.particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html>
